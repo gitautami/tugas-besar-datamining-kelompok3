@@ -7,6 +7,20 @@ seaborn
 # Machine Learning
 scikit-learn
 
+# NLP - Bahasa Indonesia
+PySastrawi
+openpyxl
+requests
+
+# Imbalanced Data Handling
+imbalanced-learn
+
+# Wordcloud
+wordcloud
+
+# Sparse Matrix
+scipy
+
 # Notebook support
 jupyter
 
