@@ -320,7 +320,7 @@ def evaluate_all_models(models, X_test, y_test, label_encoder, save_dir='output'
 
     # Tabel Ringkasan
     df_hasil = pd.DataFrame(hasil).set_index('Model')
-    df_hasil = df_hasil.applymap(lambda x: f"{x:.4f}")
+    df_hasil = df_hasil.map(lambda x: f"{x:.4f}")
 
     print("\n" + "=" * 70)
     print("  TABEL PERBANDINGAN MODEL")

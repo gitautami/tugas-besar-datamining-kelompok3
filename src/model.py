@@ -174,7 +174,7 @@ def train_logistic_regression(X_train, y_train, C=1.0, max_iter=1000, random_sta
         model: Model Logistic Regression yang sudah dilatih
     """
     model = LogisticRegression(
-        C=C, solver='liblinear',
+        C=C, solver='lbfgs',
         class_weight='balanced',
         max_iter=max_iter,
         random_state=random_state

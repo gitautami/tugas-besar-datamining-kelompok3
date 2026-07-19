@@ -14,10 +14,11 @@ fi
 
 echo ""
 echo "🚀 Menjalankan pipeline: src/main.py"
+echo "   (main.py akan menjalankan 5 notebook secara berurutan)"
 echo "------------------------------------------------------------"
 
 # Jalankan dari root project agar path relatif benar
-python3 src/main.py
+python src/main.py
 
 echo ""
 echo "============================================================"
