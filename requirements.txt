@@ -1,0 +1,15 @@
+# Core packages
+pandas
+numpy
+matplotlib
+seaborn
+
+# Machine Learning
+scikit-learn
+
+# Notebook support
+jupyter
+
+# Optional (advanced modeling & visualization)
+xgboost
+plotly
