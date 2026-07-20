@@ -9,7 +9,7 @@
 
 | No | Nama | NIM |
 |----|------|-----|
-| 1  | [Resqi Audia Gita Utami] | [714230003] |
+| 1  | [Resqi Aulia Gita Utami] | [714230003] |
 | 2  | [Muhammad Haitsam Izzuddin Azman] | [714230021] |
 | 3  | [Hafidz Fakhri Muharram] | [714230031] |
 | 4  | [Miqdam Syiam Nurrohman] | [714230043] |
