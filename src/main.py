@@ -1,5 +1,3 @@
-# src/main.py
-
 """
 Main Orchestrator – Pipeline Sentimen Analisis Data Mining
 Kelompok 3 – Analisis Sentimen Pernyataan Prabowo
@@ -22,9 +20,6 @@ import os
 import sys
 import subprocess
 
-
-# ─── Konfigurasi ─────────────────────────────────────────────────────────────
-
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 NOTEBOOKS = [
@@ -42,9 +37,6 @@ TAHAP_NAMA = [
     'TAHAP 5 : VISUALISASI WORDCLOUD',
     'TAHAP 6 : EVALUASI MODEL',
 ]
-
-
-# ─── Fungsi ───────────────────────────────────────────────────────────────────
 
 def run_notebook(nb_path, tahap_nama):
     """

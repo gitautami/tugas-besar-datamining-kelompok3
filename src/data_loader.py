@@ -9,7 +9,6 @@ Module ini digunakan untuk memuat dataset dari direktori `data/` baik dari folde
 import pandas as pd
 import os
 
-# Folder path relatif dari root repository
 RAW_DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "raw")
 PROCESSED_DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "processed")
 

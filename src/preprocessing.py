@@ -1,4 +1,3 @@
-# src/preprocessing.py
 
 """
 preprocessing.py
@@ -16,7 +15,6 @@ import requests
 import pandas as pd
 
 
-# ─── Kamus Manual (Normalisasi Kata Tidak Baku) ─────────────────────────────
 KAMUS_MANUAL = {
     # Negasi
     'gak':    'tidak', 'ga':     'tidak', 'ngak':   'tidak',
@@ -41,13 +39,12 @@ KAMUS_MANUAL = {
     'wtf':    '', 'amp':    '', 'br':     '', 'brbr':   '',
 }
 
-# ─── Kata Negasi yang WAJIB dijaga (jangan masuk stopword) ───────────────────
 KATA_NEGASI_WAJIB = {
     'tidak', 'bukan', 'jangan', 'belum', 'tanpa',
     'tak', 'anti', 'non', 'tiada', 'mustahil'
 }
 
-# ─── Stopword Manual ─────────────────────────────────────────────────────────
+
 STOPWORD_MANUAL = {
     # Partikel & konjungsi umum
     'yang', 'di', 'ke', 'dari', 'dan', 'dengan', 'untuk', 'pada',
@@ -82,7 +79,7 @@ STOPWORD_MANUAL = {
     'ikut', 'usah', 'bikin', 'orang', 'ajar',
 }
 
-# ─── URL GitHub untuk Stopword ────────────────────────────────────────────────
+
 BASE_URL = "https://raw.githubusercontent.com/ArhamZaldin/Kamus-Custom-Preprocessing-Analisis-Sentimen-Indonesia/main/"
 
 
@@ -148,7 +145,7 @@ def build_stopword_final(stopword_github=None):
     Returns:
         set: Stopword final yang aman (tanpa kata negasi)
     """
-    # Konversi stopword GitHub ke set
+
     if stopword_github is None:
         stopword_github_set = set()
     elif isinstance(stopword_github, dict):
@@ -156,10 +153,8 @@ def build_stopword_final(stopword_github=None):
     else:
         stopword_github_set = set(stopword_github)
 
-    # Gabungkan stopword manual + GitHub
     stopword_gabungan = STOPWORD_MANUAL | stopword_github_set
 
-    # Pastikan kata negasi TIDAK ada di stopword
     stopword_final = stopword_gabungan - KATA_NEGASI_WAJIB
 
     print(f"[preprocessing] Stopword manual       : {len(STOPWORD_MANUAL)} kata")
@@ -167,7 +162,6 @@ def build_stopword_final(stopword_github=None):
     print(f"[preprocessing] Stopword gabungan     : {len(stopword_gabungan)} kata")
     print(f"[preprocessing] Stopword final (aman) : {len(stopword_final)} kata")
 
-    # Verifikasi kata negasi aman
     print("\n[preprocessing] Verifikasi — kata negasi masih ada di stopword?")
     for neg in sorted(KATA_NEGASI_WAJIB):
         status = 'BAHAYA' if neg in stopword_final else 'aman'
@@ -218,40 +212,30 @@ def bersihkan_teks(teks, kamus_gabungan, stopword_final, stemmer):
     Returns:
         str: Teks yang sudah dibersihkan
     """
-    # a. Guard
     if pd.isna(teks) or str(teks).strip() == '':
         return ''
 
-    # b. Case folding
     teks = str(teks).lower()
 
-    # c. Hapus URL
     teks = re.sub(r'http\S+|www\S+', '', teks)
 
-    # d. Hapus mention dan hashtag
     teks = re.sub(r'@\w+', '', teks)
     teks = re.sub(r'#\w+', '', teks)
 
-    # e. Hapus emoji & karakter non-ASCII
     teks = teks.encode('ascii', 'ignore').decode('ascii')
 
-    # f. Hapus tanda baca & angka (jaga huruf dan spasi)
     teks = re.sub(r'[^a-z\s]', '', teks)
 
-    # g. Normalisasi spasi berlebih
     teks = re.sub(r'\s+', ' ', teks).strip()
 
-    # h. Normalisasi kata tidak baku per kata
     kata_kata = teks.split()
     kata_kata = [kamus_gabungan.get(k, k) for k in kata_kata]
 
-    # i. Stopword removal (panjang minimum 2 karakter)
     kata_kata = [
         k for k in kata_kata
         if k not in stopword_final and len(k) > 1
     ]
 
-    # j. Stemming
     kata_kata = [stemmer.stem(k) for k in kata_kata]
 
     return ' '.join(kata_kata)
@@ -272,29 +256,24 @@ def run_preprocessing(df, kamus_gabungan, stopword_final, stemmer, text_col='tex
     Returns:
         pd.DataFrame: DataFrame setelah preprocessing dengan kolom 'text_clean' baru
     """
-    # Hapus baris duplikat sebelum cleaning
     sebelum_dup = len(df)
     df = df.drop_duplicates(subset=text_col).reset_index(drop=True)
     sesudah_dup = len(df)
 
-    # Terapkan fungsi cleaning
     print(f"[preprocessing] Menjalankan cleaning pada {len(df)} baris...")
     df['text_clean'] = df[text_col].apply(
         lambda t: bersihkan_teks(t, kamus_gabungan, stopword_final, stemmer)
     )
     print("[preprocessing] Cleaning selesai.")
 
-    # Hapus baris kosong hasil cleaning
     sebelum_kosong = len(df)
     df = df[df['text_clean'].str.strip() != ''].reset_index(drop=True)
     sesudah_kosong = len(df)
 
-    # Hapus baris yang hasil setelah cleaning hanya 1 kata
     sebelum_1kata = len(df)
     df = df[df['text_clean'].str.split().str.len() >= 2].reset_index(drop=True)
     sesudah_1kata = len(df)
 
-    # Laporan
     print("\n" + "=" * 55)
     print("  LAPORAN DATA CLEANING")
     print("=" * 55)
@@ -305,7 +284,6 @@ def run_preprocessing(df, kamus_gabungan, stopword_final, stemmer, text_col='tex
     print(f"  Baris akhir (bersih)    : {sesudah_1kata:,}")
     print("=" * 55)
 
-    # Contoh hasil
     print("\n  CONTOH HASIL (5 baris pertama):")
     print("-" * 55)
     for i, row in df.head(5).iterrows():

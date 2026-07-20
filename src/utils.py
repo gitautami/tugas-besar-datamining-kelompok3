@@ -1,4 +1,3 @@
-# src/utils.py
 
 """
 utils.py
@@ -20,8 +19,6 @@ from sklearn.metrics import (
 )
 from wordcloud import WordCloud
 
-
-# ─── EDA ─────────────────────────────────────────────────────────────────────
 
 def run_eda(df, label_col='label_manual', save_dir='output'):
     """
@@ -49,7 +46,6 @@ def run_eda(df, label_col='label_manual', save_dir='output'):
             print(f"    - {col}: {n_missing:,} baris kosong")
     print()
 
-    # Distribusi label
     distribusi = df[label_col].value_counts()
     total = len(df)
 
@@ -62,7 +58,6 @@ def run_eda(df, label_col='label_manual', save_dir='output'):
     print(f"\n  Total data : {total:,} baris")
     print("=" * 55)
 
-    # Visualisasi Donut Chart
     labels = distribusi.index
     counts = distribusi.values
     warna_label = {'Negatif': '#D85A30', 'Netral': '#888780', 'Positif': '#1D9E75'}
@@ -82,7 +77,6 @@ def run_eda(df, label_col='label_manual', save_dir='output'):
         textprops={'fontsize': 12, 'fontweight': 'bold'}
     )
 
-    # Lingkaran tengah (donut effect)
     centre_circle = plt.Circle((0, 0), 0.70, fc='white')
     fig = plt.gcf()
     fig.gca().add_artist(centre_circle)
@@ -97,8 +91,6 @@ def run_eda(df, label_col='label_manual', save_dir='output'):
     print(f"\n[utils] Grafik distribusi disimpan: {save_path}")
     plt.show()
 
-
-# ─── WordCloud ───────────────────────────────────────────────────────────────
 
 def _ambil_bobot_kata(model, index_kelas, tipe_model):
     """
@@ -137,10 +129,8 @@ def _buat_wordcloud_dari_bobot(bobot, nama_fitur, judul, ax):
     """
     bobot = np.asarray(bobot).ravel()
 
-    # Pasangkan kata dengan bobot
     pasangan = dict(zip(nama_fitur, bobot.tolist()))
 
-    # Hanya ambil kata dengan bobot positif dan panjang >= 3
     kata_positif = {
         k: v for k, v in pasangan.items()
         if v > 0 and len(k) >= 3 and not any(c.isdigit() for c in k)
@@ -180,7 +170,6 @@ def plot_wordcloud_all_models(models, tfidf, label_encoder, save_dir='output'):
     nama_fitur = tfidf.get_feature_names_out()
     nama_kelas = label_encoder.classes_
 
-    # Mapping tipe model
     tipe_map = {}
     for nama_model in models.keys():
         nama_lower = nama_model.lower()
@@ -210,15 +199,12 @@ def plot_wordcloud_all_models(models, tfidf, label_encoder, save_dir='output'):
         fig.suptitle(f'WordCloud – {nama_model}', fontsize=16, fontweight='bold')
         plt.tight_layout()
 
-        # Nama file aman
         nama_file = nama_model.replace(' ', '_').replace('(', '').replace(')', '') + '_wordcloud.png'
         save_path = os.path.join(save_dir, nama_file)
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
         print(f"[utils] WordCloud disimpan: {save_path}")
         plt.show()
 
-
-# ─── Evaluasi ─────────────────────────────────────────────────────────────────
 
 def plot_confusion_matrix(y_true, y_pred, labels=None, figsize=(6, 4),
                            title="Confusion Matrix", save_path=None):
@@ -318,7 +304,6 @@ def evaluate_all_models(models, X_test, y_test, label_encoder, save_dir='output'
             save_path=save_path
         )
 
-    # Tabel Ringkasan
     df_hasil = pd.DataFrame(hasil).set_index('Model')
     df_hasil = df_hasil.map(lambda x: f"{x:.4f}")
 

@@ -1,4 +1,3 @@
-# src/model.py
 
 """
 model.py
@@ -25,8 +24,6 @@ from sklearn.ensemble import RandomForestClassifier
 from imblearn.over_sampling import SMOTE
 
 
-# ─── Label Encoding ──────────────────────────────────────────────────────────
-
 def encode_labels(df, label_col='label_manual'):
     """
     Mengubah label teks menjadi angka menggunakan LabelEncoder.
@@ -49,8 +46,6 @@ def encode_labels(df, label_col='label_manual'):
 
     return df, label_encoder
 
-
-# ─── TF-IDF Vectorization ────────────────────────────────────────────────────
 
 def tfidf_vectorize(X_text, max_features=10000, ngram_range=(1, 2),
                     min_df=2, max_df=0.9, sublinear_tf=True):
@@ -89,8 +84,6 @@ def tfidf_vectorize(X_text, max_features=10000, ngram_range=(1, 2),
 
     return X_tfidf, tfidf
 
-
-# ─── Train-Test Split ────────────────────────────────────────────────────────
 
 def split_data(df, target_column, test_size=0.2, random_state=42):
     """
@@ -131,8 +124,6 @@ def split_data_stratified(X, y, test_size=0.2, random_state=42):
     return X_train, X_test, y_train, y_test
 
 
-# ─── SMOTE ───────────────────────────────────────────────────────────────────
-
 def apply_smote(X_train, y_train, k_neighbors=5, random_state=42):
     """
     Menerapkan SMOTE untuk menangani data yang tidak seimbang.
@@ -156,8 +147,6 @@ def apply_smote(X_train, y_train, k_neighbors=5, random_state=42):
 
     return X_train_smote, y_train_smote
 
-
-# ─── Training Model ──────────────────────────────────────────────────────────
 
 def train_logistic_regression(X_train, y_train, C=1.0, max_iter=1000, random_state=42):
     """
