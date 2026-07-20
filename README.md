@@ -34,7 +34,7 @@
 * **Periode Pengumpulan:** Proses pencarian dan penarikan data dilaksanakan selama rentang waktu **8 hingga 13 Juni 2026**.
 * **Volume Ukuran Data:**
   * **Total Data Mentah (*Raw Data*):** Terkumpul sebanyak **11.163 baris komentar** (TikTok: 1.999 komentar; YouTube: 9.164 komentar).
-  * **Total Data Valid:** Setelah melalui tahapan filtrasi ketat pada pra-pemrosesan (*text preprocessing*)—seperti menghapus *missing values*, komentar duplikat, dan teks di bawah 2 kata—diperoleh **10.295 baris observasi data valid**.
+  * **Total Data Valid:** Setelah melalui tahapan filtrasi ketat pada pra-pemrosesan (*text preprocessing*) seperti menghapus *missing values*, komentar duplikat, dan teks di bawah 2 kata diperoleh **10.295 baris observasi data valid**.
 * **Format dan Atribut Penyimpanan:** Dataset gabungan akhir disimpan dalam ekstensi **CSV (*Comma Separated Values*)** dengan struktur dua kolom utama, yaitu:
   * `Text`: Berisi data teks komentar warganet yang telah dibersihkan.
   * `Label`: Berisi representasi target kelas sentimen hasil pelabelan (Negatif, Netral, atau Positif).
@@ -75,8 +75,8 @@ Model klasifikasi dilatih menggunakan representasi **TF-IDF** (unigram + bigram,
 ### Penanganan Imbalanced Data
 
 Semua model dilatih dalam **dua skenario**:
-- **Sebelum SMOTE** – Training langsung pada data asli
-- **Sesudah SMOTE** – Training setelah oversample kelas minoritas dengan [SMOTE](https://imbalanced-learn.org/)
+- **Sebelum SMOTE** - Training langsung pada data asli
+- **Sesudah SMOTE** - Training setelah oversample kelas minoritas dengan [SMOTE](https://imbalanced-learn.org/)
 
 ### Total Model yang Dilatih
 
@@ -97,10 +97,10 @@ Evaluasi dilakukan pada **data uji (20%)** menggunakan stratified split untuk me
 
 ### Metrik Evaluasi
 
-- **Accuracy** – Persentase prediksi yang benar
-- **Precision** – Ketepatan prediksi per kelas (weighted average)
-- **Recall** – Kelengkapan prediksi per kelas (weighted average)
-- **F1-Score** – Harmonic mean dari Precision dan Recall
+- **Accuracy** - Persentase prediksi yang benar
+- **Precision** - Ketepatan prediksi per kelas (weighted average)
+- **Recall** - Kelengkapan prediksi per kelas (weighted average)
+- **F1-Score** - Harmonic mean dari Precision dan Recall
 
 ### Output Evaluasi
 
