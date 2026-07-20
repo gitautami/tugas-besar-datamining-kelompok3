@@ -1,6 +1,6 @@
 # 🗳️ ANALISIS SENTIMEN PENGGUNA TIKTOK DAN YOUTUBE TERHADAP PERNYATAAN PRESIDEN PRABOWO BAHWA “ORANG DESA TIDAK PAKAI DOLAR”
 
-> **Tugas Besar Data Mining – Kelompok 3**
+> **Tugas Besar Data Mining - Kelompok 3**
 > Klasifikasi sentimen berbahasa Indonesia menggunakan Machine Learning (Logistic Regression, SVM, Naive Bayes) dengan pipeline lengkap dari EDA hingga evaluasi model.
 
 ---
